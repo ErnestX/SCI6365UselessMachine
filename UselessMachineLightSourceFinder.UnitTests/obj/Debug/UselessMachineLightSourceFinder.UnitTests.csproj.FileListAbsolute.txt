@@ -1,0 +1,17 @@
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\obj\Debug\UselessMachineLightSourceFinder.UnitTests.csprojAssemblyReference.cache
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\obj\Debug\UselessMachineLightSourceFinder.UnitTests.csproj.CoreCompileInputs.cache
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\UselessMachineLightSourceFinder.UnitTests.dll
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\UselessMachineLightSourceFinder.UnitTests.pdb
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\UselessMachineLightSourceFinder.exe
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\UselessMachineLightSourceFinder.pdb
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\UselessMachineLightSourceFinder.exe.config
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\obj\Debug\UselessMachineLightSourceFinder.UnitTests.csproj.CopyComplete
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\obj\Debug\UselessMachineLightSourceFinder.UnitTests.dll
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\obj\Debug\UselessMachineLightSourceFinder.UnitTests.pdb

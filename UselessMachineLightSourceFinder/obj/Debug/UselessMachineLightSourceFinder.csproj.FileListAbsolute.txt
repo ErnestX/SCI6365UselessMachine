@@ -1,0 +1,7 @@
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder\obj\Debug\UselessMachineLightSourceFinder.csprojAssemblyReference.cache
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder\obj\Debug\UselessMachineLightSourceFinder.csproj.CoreCompileInputs.cache
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder\bin\Debug\UselessMachineLightSourceFinder.exe.config
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder\bin\Debug\UselessMachineLightSourceFinder.exe
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder\bin\Debug\UselessMachineLightSourceFinder.pdb
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder\obj\Debug\UselessMachineLightSourceFinder.exe
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder\obj\Debug\UselessMachineLightSourceFinder.pdb
