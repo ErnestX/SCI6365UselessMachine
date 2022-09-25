@@ -19,7 +19,7 @@ namespace UselessMachineLightSourceFinder
 		private static double[] sensor_z_coordinates = { 2, 0, 10, 10, 0, 3 };
 
 		private static double[] sensor_x_weight = { 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
-		private static double[] sensor_y_weight = { 0.2, 0.2, 0.2, 0.2, 0.2, 0.2 };
+		private static double[] sensor_y_weight = { 0.1, 0.1, 0.05, 0.05, 0.1, 0.05 };
 		private static double[] sensor_z_weight = { -0.15, -0.15, -0.15, -0.15, -0.15, -0.15 };
 		private static double[] sensor_z_adjustment = { 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 };
 
