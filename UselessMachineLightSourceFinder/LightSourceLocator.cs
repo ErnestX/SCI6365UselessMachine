@@ -12,16 +12,17 @@ namespace UselessMachineLightSourceFinder
 	/// Observation: after substracting by baseline, the reading increases dramatically as the light source (iphone) gets closer, 
 	/// but decrease slowly as it gets further away; 
 	/// </summary>
-	class LightSourceLocator
+	public class LightSourceLocator
 	{
 		private static double[] sensor_x_coordinates = { 4, 15, 5, -15, -18, 0 };
 		private static double[] sensor_y_coordinates = { -15, -8, 0, 5, -5, 10 };
 		private static double[] sensor_z_coordinates = { 2, 0, 10, 10, 0, 3 };
+		private static double[] sensor_z_coordinates_adjustment = { 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
 
 		private static double[] sensor_x_weight = { 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
 		private static double[] sensor_y_weight = { 0.1, 0.1, 0.05, 0.05, 0.1, 0.05 };
 		private static double[] sensor_z_weight = { -0.15, -0.15, -0.15, -0.15, -0.15, -0.15 };
-		private static double[] sensor_z_adjustment = { 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 };
+		
 
 
 		private static double power = 0.33;
@@ -33,6 +34,8 @@ namespace UselessMachineLightSourceFinder
 		private static double[] sensor_baselineValue = { 198, 206, 167, 191, 192, 187 }; //TODO: do this automatically at the beginning
 		public static LightSourceLocation FindLightSourceLocationGivenSensorReadings(SensorReading sensorReading)
 		{
+			PrintArray(sensorReading.ReadingOfEachSensor);
+
 			double[] readingsMinusBaselines = ArraySubstraction(sensorReading.ReadingOfEachSensor, sensor_baselineValue); // this removes the effect of environemtal light
 			double[] readingsToNegativePower = ArrayPower(readingsMinusBaselines, power); // this makes the reading values linear to its distance to the light source
 
@@ -43,8 +46,8 @@ namespace UselessMachineLightSourceFinder
 			double yPredict = ArrayMultiplication(sensor_y_coordinates, readingsWeightedForY).Sum();
 
 			double[] readingsWeightedForZ = ArrayMultiplication(readingsToNegativePower, sensor_z_weight);
-			double[] readingsAdjustedForZ = ArrayAddition(readingsWeightedForZ, sensor_z_adjustment);
-			double zPredict = ArrayMultiplication(sensor_z_coordinates, readingsAdjustedForZ).Sum();
+			double[] coordinatesAdjustedForZ = ArrayAddition(sensor_z_coordinates, sensor_z_coordinates_adjustment);
+			double zPredict = ArrayMultiplication(coordinatesAdjustedForZ, readingsWeightedForZ).Sum();
 
 			return new LightSourceLocation(xPredict,yPredict,zPredict);
 		}
@@ -59,7 +62,7 @@ namespace UselessMachineLightSourceFinder
 			Console.WriteLine("");
 		}
 
-		private static double[] ArrayAddition(double[] arr1, double[] arr2)
+		public static double[] ArrayAddition(double[] arr1, double[] arr2)
 		{
 			if (arr1.Length != arr2.Length)
 			{
@@ -73,7 +76,7 @@ namespace UselessMachineLightSourceFinder
 			return result;
 		}
 
-		private static double[] ArraySubstraction(double[] arr1, double[] arr2)
+		public static double[] ArraySubstraction(double[] arr1, double[] arr2)
 		{
 			if (arr1.Length != arr2.Length)
 			{
@@ -87,7 +90,7 @@ namespace UselessMachineLightSourceFinder
 			return result;
 		}
 
-		private static double[] ArrayMultiplication(double[] arr1, double[] arr2)
+		public static double[] ArrayMultiplication(double[] arr1, double[] arr2)
 		{
 			if (arr1.Length != arr2.Length)
 			{
@@ -105,7 +108,7 @@ namespace UselessMachineLightSourceFinder
 		/// raise each value in the array to power specified; 
 		/// If the value is negative, instead of outputing NAN, output the negative of its abs to power
 		/// </summary>
-		private static double[] ArrayPower(double[] arr, double power)
+		public static double[] ArrayPower(double[] arr, double power)
 		{
 			double[] result = new double[arr.Length];
 			for (int i = 0; i < arr.Length; i++)

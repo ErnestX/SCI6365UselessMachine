@@ -29,11 +29,6 @@ namespace UselessMachineLightSourceFinder
 			{
 				//there are enough data for at least one complete reading
 				var reading = readings.Last();
-				Console.Write("Parsed: ");
-				foreach (int r in reading.ReadingOfEachSensor)
-				{
-					Console.Write(r.ToString() + ", ");
-				}
 
 				Console.Write("Prediction: ");
 
