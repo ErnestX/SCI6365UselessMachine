@@ -48,13 +48,23 @@ namespace UselessMachineLightSourceFinder.UnitTests
 		}
 
 		[TestMethod]
-		public void TestArrayPower()
+		public void TestArrayPower_1()
 		{
 			double[] arr1 = { 1, 2, 3 };
 			var result = LightSourceLocator.ArrayPower(arr1, 2);
 			Assert.AreEqual(1, result[0]);
 			Assert.AreEqual(4, result[1]);
 			Assert.AreEqual(9, result[2]);
+		}
+
+		[TestMethod]
+		public void TestArrayPower_2()
+		{
+			double[] arr1 = { 1, -2, 3 };
+			var result = LightSourceLocator.ArrayPower(arr1, 0.33);
+			Assert.IsTrue(result[0] > 0);
+			Assert.IsTrue(result[1] < 0);
+			Assert.IsTrue(result[2] > 0);
 		}
 	}
 }
