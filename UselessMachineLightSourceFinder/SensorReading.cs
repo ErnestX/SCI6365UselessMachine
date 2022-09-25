@@ -11,11 +11,11 @@ namespace UselessMachineLightSourceFinder
 	{
 		public SensorReading(List<int> readingOfEachSensor)
 		{
-			this.ReadingOfEachSensor = new List<int>(readingOfEachSensor); // make a copy of the list
+			this.ReadingOfEachSensor = readingOfEachSensor.ToArray(); 
 		}
 
-		public int NumOfSensors => this.ReadingOfEachSensor.Count;
-		public List<int> ReadingOfEachSensor { get; }
+		public int NumOfSensors => this.ReadingOfEachSensor.Length;
+		public int[] ReadingOfEachSensor { get; }
 
 		/// <summary>
 		/// Read the serial data sent from Arduino in predefined format

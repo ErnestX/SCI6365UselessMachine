@@ -34,8 +34,8 @@ namespace UselessMachineLightSourceFinder
 				{
 					Console.Write(r.ToString() + ", ");
 				}
-				
-				
+
+				Console.Write("Prediction: ");
 				
 				
 				

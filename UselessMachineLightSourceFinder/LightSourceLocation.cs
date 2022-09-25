@@ -34,10 +34,5 @@ namespace UselessMachineLightSourceFinder
 		///  the z coordinate in the physical world, with 0.0 at the base of the model; must be non-negative
 		/// </summary>
 		public float Z_cm { get; set; }
-
-		public static LightSourceLocation FindLightSourceLocationGivenSensorReadings(SensorReading sensorReading)
-		{
-			throw new NotImplementedException();
-		}
 	}
 }
