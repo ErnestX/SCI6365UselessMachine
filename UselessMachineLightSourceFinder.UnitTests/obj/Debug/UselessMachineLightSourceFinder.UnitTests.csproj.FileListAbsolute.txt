@@ -15,3 +15,5 @@ C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinde
 C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\obj\Debug\UselessMachineLightSourceFinder.UnitTests.csproj.CopyComplete
 C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\obj\Debug\UselessMachineLightSourceFinder.UnitTests.dll
 C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\obj\Debug\UselessMachineLightSourceFinder.UnitTests.pdb
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\nunit.framework.dll
+C:\Users\Jialiang\Documents\MyCode\UselessMachine\UselessMachineLightSourceFinder.UnitTests\bin\Debug\nunit.framework.xml

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using NUnit;
 
 namespace UselessMachineLightSourceFinder.UnitTests
 {
@@ -11,6 +12,14 @@ namespace UselessMachineLightSourceFinder.UnitTests
 	[TestClass]
 	public class LightSourceLocatorTests
 	{
+		[TestMethod]
+		public void TestLightSourceLocating()
+		{
+			var sr = new SensorReading(new List<int> { 600, 500, 400, 300, 200, 100 });
+			var result = LightSourceLocator.FindLightSourceLocationGivenSensorReadings(sr);
+			Console.WriteLine(result.ToString());
+		}
+
 		[TestMethod]
 		public void TestArrayAddition()
 		{
