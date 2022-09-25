@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UselessMachineLightSourceFinder
 {
@@ -26,6 +27,10 @@ namespace UselessMachineLightSourceFinder
 		{
 			// Step1: split at new lines to get each set of readings at a certain moment
 			List<String> readingSets = new List<String>(rawSerialDataForReadings.Split(new string[] { Environment.NewLine }, StringSplitOptions.None));
+			if (readingSets.Last() != "")
+			{
+				readingSets.RemoveAt(readingSets.Count - 1); // not having an empty string at the end means the data doesn't end with a new line, which means the last line is not finished. Remove it. 
+			}
 			List<SensorReading> newSensorReadings = new List<SensorReading>();
 			foreach (String readingSet in readingSets)
 			{
@@ -42,14 +47,11 @@ namespace UselessMachineLightSourceFinder
 						continue; // ignore empty string
 					}
 
-					Console.Write(reading + ", ");
-
 					int readingInInteger;
 					bool s = Int32.TryParse(reading, out readingInInteger);
 					success = success && s;
 					readingsInInteger.Add(readingInInteger);
 				}
-				Console.WriteLine("");
 
 				if (success && readingsInInteger.Count == numberOfSensors)
 				{

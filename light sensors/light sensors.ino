@@ -1,4 +1,5 @@
 int numOfSensors = 6;
+int updateInterval = 500;
 int sensors[6] = {14, 15, 16, 17, 18, 19};
 int readings[6] = {NAN, NAN, NAN, NAN, NAN, NAN};  
 
@@ -16,5 +17,5 @@ void loop() {
     Serial.print(" ");
   }
   Serial.println("");
-  delay(200);
+  delay(updateInterval);
 }

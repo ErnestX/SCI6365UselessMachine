@@ -8,8 +8,8 @@ namespace UselessMachineLightSourceFinder
 {
 	class Program
 	{
-		private int NUM_OF_SENSOR = 6;
-		static private StringBuilder trainingDataBuilder = new StringBuilder(100, 1000);
+		static private int NUM_OF_SENSOR = 6;
+		static private StringBuilder serialBuffer = new StringBuilder(100, 1000);
 		static void Main(string[] args)
 		{
 			// Step1: open port
@@ -23,15 +23,21 @@ namespace UselessMachineLightSourceFinder
 
 		private static void SensorDataHandler(object sender, String data)
 		{
-			Console.Write(data);
+			serialBuffer.Append(data);
+			List<SensorReading> readings = SensorReading.ProcessSensorData(serialBuffer.ToString(), NUM_OF_SENSOR);
+			if (readings.Count > 0)
+			{
+				//there are enough data for at least one complete reading
+				var reading = readings.Last();
+				Console.Write("Parsed: ");
+				foreach (int r in reading.ReadingOfEachSensor)
+				{
+					Console.Write(r.ToString() + ", ");
+				}
+				Console.WriteLine("");
 
-			trainingDataBuilder.Append(data);
-			//TrainingData dataSample = TrainingData.ProcessTrainingData(trainingDataBuilder.ToString(), NUM_OF_SENSOR, new LightSourceLocation(0, 0, 0));
-			//if (dataSample.SensorReadings.Count > 0)
-			//{
-			// there are enough data for one sample
-
-			//}
+				serialBuffer.Clear();
+			}
 		}
 	}
 }
