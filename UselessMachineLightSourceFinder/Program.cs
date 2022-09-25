@@ -37,7 +37,9 @@ namespace UselessMachineLightSourceFinder
 
 				Console.Write("Prediction: ");
 
-				_ = LightSourceLocator.FindLightSourceLocationGivenSensorReadings(reading);
+				var location = LightSourceLocator.FindLightSourceLocationGivenSensorReadings(reading);
+
+				Console.WriteLine(location.ToString());
 				
 				
 				
@@ -47,9 +49,6 @@ namespace UselessMachineLightSourceFinder
 				
 				
 				
-				
-				
-				Console.WriteLine("");
 							
 				serialBuffer.Clear();
 			}

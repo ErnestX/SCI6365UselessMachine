@@ -14,34 +14,39 @@ namespace UselessMachineLightSourceFinder
 	/// </summary>
 	class LightSourceLocator
 	{
-		private static int[] sensor_x_coordinates = { 4, 15, 5, -15, -18, 0 };
-		private static int[] sensor_y_coordinates = { -15, -8, 0, 5, -5, 10 };
-		private static int[] sensor_z_coordinates = { 0, 0, 15, 10, 0, 3 };
+		private static double[] sensor_x_coordinates = { 4, 15, 5, -15, -18, 0 };
+		private static double[] sensor_y_coordinates = { -15, -8, 0, 5, -5, 10 };
+		private static double[] sensor_z_coordinates = { 2, 0, 10, 10, 0, 3 };
 
-		private static double[] sensor_x_weight = { 1, 1, 1, 1, 1, 1 };
-		private static double[] sensor_x_adjustment = { 0, 0, 0, 0, 0, 0 };
-		private static double[] sensor_y_weight => sensor_x_weight;
-		private static double[] sensor_y_adjustment => sensor_x_adjustment;
+		private static double[] sensor_x_weight = { 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
+		private static double[] sensor_y_weight = { 0.2, 0.2, 0.2, 0.2, 0.2, 0.2 };
+		private static double[] sensor_z_weight = { -0.15, -0.15, -0.15, -0.15, -0.15, -0.15 };
+		private static double[] sensor_z_adjustment = { 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 };
 
-		private static double[] sensor_z_weight = { 1, 1, 1, 1, 1, 1 };
-		private static double[] sensor_z_adjustment = { 0, 0, 0, 0, 0, 0 };
 
-		private static double powerValueForLinearTransform = 0.33;
+		private static double power = 0.33;
 
 		/// <summary>
 		/// To reduce the effect of environmental lighting. 
 		/// Measure the value of each sensor when no light is shine on them, or enter 0s to consider environmental light as light source 
 		/// </summary>
-		private static double[] sensor_baselineValue = { 328, 239, 297, 204, 251, 279 }; 
+		private static double[] sensor_baselineValue = { 198, 206, 167, 191, 192, 187 }; //TODO: do this automatically at the beginning
 		public static LightSourceLocation FindLightSourceLocationGivenSensorReadings(SensorReading sensorReading)
 		{
 			double[] readingsMinusBaselines = ArraySubstraction(sensorReading.ReadingOfEachSensor, sensor_baselineValue); // this removes the effect of environemtal light
-			double[] readingsToNegativePower = ArrayPower(readingsMinusBaselines, powerValueForLinearTransform); // this makes the reading values linear to its distance to the light source
-			
+			double[] readingsToNegativePower = ArrayPower(readingsMinusBaselines, power); // this makes the reading values linear to its distance to the light source
 
-			PrintArray(readingsToNegativePower);
+			double[] readingsWeightedForX = ArrayMultiplication(readingsToNegativePower, sensor_x_weight);
+			double xPredict = ArrayMultiplication(sensor_x_coordinates, readingsWeightedForX).Sum();
 
-			return new LightSourceLocation(0,0,0);
+			double[] readingsWeightedForY = ArrayMultiplication(readingsToNegativePower, sensor_y_weight);
+			double yPredict = ArrayMultiplication(sensor_y_coordinates, readingsWeightedForY).Sum();
+
+			double[] readingsWeightedForZ = ArrayMultiplication(readingsToNegativePower, sensor_z_weight);
+			double[] readingsAdjustedForZ = ArrayAddition(readingsWeightedForZ, sensor_z_adjustment);
+			double zPredict = ArrayMultiplication(sensor_z_coordinates, readingsAdjustedForZ).Sum();
+
+			return new LightSourceLocation(xPredict,yPredict,zPredict);
 		}
 
 		private static void PrintArray(double[] arr)
@@ -54,6 +59,20 @@ namespace UselessMachineLightSourceFinder
 			Console.WriteLine("");
 		}
 
+		private static double[] ArrayAddition(double[] arr1, double[] arr2)
+		{
+			if (arr1.Length != arr2.Length)
+			{
+				Debug.Fail("FAILURE: arrays have different length");
+			}
+			double[] result = new double[arr1.Length];
+			for (int i = 0; i < arr1.Length; i++)
+			{
+				result[i] = arr1[i] + arr2[i];
+			}
+			return result;
+		}
+
 		private static double[] ArraySubstraction(double[] arr1, double[] arr2)
 		{
 			if (arr1.Length != arr2.Length)
@@ -64,6 +83,20 @@ namespace UselessMachineLightSourceFinder
 			for (int i = 0; i < arr1.Length; i++)
 			{
 				result[i] = arr1[i] - arr2[i];
+			}
+			return result;
+		}
+
+		private static double[] ArrayMultiplication(double[] arr1, double[] arr2)
+		{
+			if (arr1.Length != arr2.Length)
+			{
+				Debug.Fail("FAILURE: arrays have different length");
+			}
+			double[] result = new double[arr1.Length];
+			for (int i = 0; i < arr1.Length; i++)
+			{
+				result[i] = arr1[i] * arr2[i];
 			}
 			return result;
 		}
