@@ -36,8 +36,8 @@ namespace UselessMachineLightSourceFinder
 				}
 
 				Console.Write("Prediction: ");
-				
-				
+
+				_ = LightSourceLocator.FindLightSourceLocationGivenSensorReadings(reading);
 				
 				
 				
