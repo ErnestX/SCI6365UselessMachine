@@ -32,7 +32,7 @@ namespace UselessMachineLightSourceFinder
 		/// </summary>
 		public double Y_cm { get; set; }
 		/// <summary>
-		///  the z coordinate in the physical world, with 0.0 at the base of the model; must be non-negative
+		///  the z coordinate in the physical world, with 0.0 at the base of the model
 		/// </summary>
 		public double Z_cm { get; set; }
 	}

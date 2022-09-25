@@ -24,27 +24,27 @@ namespace UselessMachineLightSourceFinder
 
 		private static double power = 0.33;
 
-		private static double z_adjustment = 30;
+		private static double z_adjustment = 60;
 
 		/// <summary>
 		/// To reduce the effect of environmental lighting. 
 		/// Measure the value of each sensor when no light is shine on them, or enter 0s to consider environmental light as light source 
 		/// </summary>
-		private static double[] sensor_baselineValue = { 198, 206, 167, 191, 192, 187 }; //TODO: do this automatically at the beginning
+		private static double[] sensor_baselineValue = { 74.00, 62.00, 77.00, 42.00, 59.00, 69.00}; //TODO: do this automatically at the beginning
 		public static LightSourceLocation FindLightSourceLocationGivenSensorReadings(SensorReading sensorReading)
 		{
 			PrintArray(sensorReading.ReadingOfEachSensor);
 
 			double[] readingsMinusBaselines = ArraySubstraction(sensorReading.ReadingOfEachSensor, sensor_baselineValue); // this removes the effect of environemtal light
-			double[] readingsToNegativePower = ArrayPower(readingsMinusBaselines, power); // this makes the reading values linear to its distance to the light source
+			double[] readingsToPower = ArrayPower(readingsMinusBaselines, power); // this makes the reading values linear to its distance to the light source
 
-			double[] readingsWeightedForX = ArrayMultiplication(readingsToNegativePower, sensor_x_weight);
+			double[] readingsWeightedForX = ArrayMultiplication(readingsToPower, sensor_x_weight);
 			double xPredict = ArrayMultiplication(sensor_x_coordinates, readingsWeightedForX).Sum();
 
-			double[] readingsWeightedForY = ArrayMultiplication(readingsToNegativePower, sensor_y_weight);
+			double[] readingsWeightedForY = ArrayMultiplication(readingsToPower, sensor_y_weight);
 			double yPredict = ArrayMultiplication(sensor_y_coordinates, readingsWeightedForY).Sum();
 
-			double[] readingsWeightedForZ = ArrayMultiplication(readingsToNegativePower, sensor_z_weight);
+			double[] readingsWeightedForZ = ArrayMultiplication(readingsToPower, sensor_z_weight);
 			double zPredict = ArrayMultiplication(sensor_z_coordinates, readingsWeightedForZ).Sum() + z_adjustment;
 
 			return new LightSourceLocation(xPredict,yPredict,zPredict);
