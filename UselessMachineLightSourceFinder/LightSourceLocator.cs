@@ -17,6 +17,7 @@ namespace UselessMachineLightSourceFinder
 		private static double[] sensor_x_coordinates = { 4, 15, 5, -15, -18, 0 };
 		private static double[] sensor_y_coordinates = { -15, -8, 0, 5, -5, 10 };
 		private static double[] sensor_z_coordinates = { 2, 0, 5, 5, 0, 3 };
+		private static double[] sensor_z_coordinates_adjustments = { 0, -1, 0, 0, -1, 0 }; // YET TO BE TESTED: because no sensor is in negative Z, these are necessary to create a "pull" effect in addtion to the "push" from the positive ones
 
 		private static double[] sensor_x_weight = { 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
 		private static double[] sensor_y_weight = { 0.1, 0.1, 0.05, 0.05, 0.1, 0.05 };
@@ -45,7 +46,8 @@ namespace UselessMachineLightSourceFinder
 			double yPredict = ArrayMultiplication(sensor_y_coordinates, readingsWeightedForY).Sum();
 
 			double[] readingsWeightedForZ = ArrayMultiplication(readingsToPower, sensor_z_weight);
-			double zPredict = ArrayMultiplication(sensor_z_coordinates, readingsWeightedForZ).Sum() + z_adjustment;
+			double[] sensor_z_coordinates_adjusted = ArrayAddition(sensor_z_coordinates, sensor_z_coordinates_adjustments);
+			double zPredict = ArrayMultiplication(sensor_z_coordinates_adjusted, readingsWeightedForZ).Sum() + z_adjustment;
 
 			return new LightSourceLocation(xPredict,yPredict,zPredict);
 		}
