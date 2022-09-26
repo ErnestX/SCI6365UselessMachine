@@ -30,11 +30,13 @@ namespace UselessMachineLightSourceFinder
 		/// <summary>
 		/// To reduce the effect of environmental lighting. 
 		/// Measure the value of each sensor when no light is shine on them, or enter 0s to consider environmental light as light source 
+		/// If the light sensors rotates, enter the average value of all sensors
 		/// </summary>
 		private static double[] sensor_baselineValue = { 74.00, 62.00, 77.00, 42.00, 59.00, 69.00}; //TODO: do this automatically at the beginning
 		public static LightSourceLocation FindLightSourceLocationGivenSensorReadings(SensorReading sensorReading)
 		{
 			PrintArray(sensorReading.ReadingOfEachSensor);
+			Console.WriteLine("Average: {0:0.00}", sensorReading.ReadingOfEachSensor.Sum() / sensorReading.NumOfSensors);
 
 			double[] readingsMinusBaselines = ArraySubstraction(sensorReading.ReadingOfEachSensor, sensor_baselineValue); // this removes the effect of environemtal light
 			double[] readingsToPower = ArrayPower(readingsMinusBaselines, power); // this makes the reading values linear to its distance to the light source
