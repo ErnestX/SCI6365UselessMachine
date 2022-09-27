@@ -9,7 +9,7 @@ namespace UselessMachineLightSourceFinder
 	class Program
 	{
 		static private int NUM_OF_SENSOR = 6;
-		static private StringBuilder serialBuffer = new StringBuilder(100, 1000);
+		static private StringBuilder serialBuffer = new StringBuilder();
 		static private double[] sensorBaselineValues = new double[NUM_OF_SENSOR];
 		static private Queue<SensorReading> readingHistory = new Queue<SensorReading>();
 		static private bool hasCalibrated = false;

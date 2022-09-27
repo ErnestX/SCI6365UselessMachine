@@ -15,14 +15,16 @@ namespace UselessMachineLightSourceFinder
 	public class LightSourceLocator
 	{
 		// be sure to avoid 0 as it effectively disables a sensor
-		private static double[] sensor_x_coordinates = { 4, 15, 5, -15, -18, 0.5 }; 
-		private static double[] sensor_y_coordinates = { -15, -8, 0.5, 5, -5, 10 }; 
-		private static double[] sensor_z_coordinates = { 2, 0.5, 5, 5, 0.5, 3 };
+		private static double[] sensor_x_coordinates = { 6, 1, -10, -1, -9, 9 }; 
+		private static double[] sensor_y_coordinates = { -7, -7, -4, -1, 5, 5 }; 
+		private static double[] sensor_z_coordinates = { 1, 1, 4, 1, 2, 1 };
 
-		private static double[] sensor_x_weight = { 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
-		private static double[] sensor_y_weight = { 0.1, 0.1, 0.05, 0.05, 0.1, 0.05 };
+		private static double[] sensor_x_weight = { 0.15, 0.1, 0.07, 0.1, 0.1, 0.15 };
+		private static double[] sensor_y_weight = { 0.1, 0.1, 0.07, 0.1, 0.15, 0.15 };
 		private static double[] sensor_z_weight = { -0.9, -0.9, -0.9, -0.9, -0.9, -0.9 }; // must be negative
-		private static double sensor_z_coordinates_weight = -2.0; // must be negative
+		private static double sensor_z_coordinates_weight = 2.0; // must be positive
+
+		private static double z_adjustment = 20;
 
 		private static double power = 0.33;
 
@@ -36,7 +38,7 @@ namespace UselessMachineLightSourceFinder
 		{
 			baselines = sensor_baselineValues;
 			PrintArray(sensorReading.ReadingOfEachSensor);
-			Console.WriteLine("Average: {0:0.00}", sensorReading.ReadingOfEachSensor.Sum() / sensorReading.NumOfSensors); // print average for convenience
+			//Console.WriteLine("Average: {0:0.00}", sensorReading.ReadingOfEachSensor.Sum() / sensorReading.NumOfSensors); // print average for convenience
 
 			double[] readingsMinusBaselines = ArraySubstraction(sensorReading.ReadingOfEachSensor, baselines); // this removes the effect of environemtal light
 			double[] readingsToPower = ArrayPower(readingsMinusBaselines, power); // this makes the reading values linear to its distance to the light source
@@ -49,7 +51,7 @@ namespace UselessMachineLightSourceFinder
 
 			double[] readingsWeightedForZ = ArrayMultiplication(readingsToPower, sensor_z_weight);
 			double[] z_coordinates_weighted = ArrayMultiplication(sensor_z_coordinates, sensor_z_coordinates_weight);
-			double zPredict = ArrayAddition(readingsWeightedForZ, z_coordinates_weighted).Sum();
+			double zPredict = ArrayAddition(readingsWeightedForZ, z_coordinates_weighted).Sum() + z_adjustment;
 
 			return new LightSourceLocation(xPredict,yPredict,zPredict);
 		}
