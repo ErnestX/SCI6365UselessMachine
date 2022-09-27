@@ -106,12 +106,12 @@ namespace UselessMachineLightSourceFinder
 			return result;
 		}
 
-		public static double[] ArrayMultiplication(double[] arr1, double number)
+		public static double[] ArrayMultiplication(double[] arr1, double factor)
 		{
 			double[] result = new double[arr1.Length];
 			for (int i = 0; i < arr1.Length; i++)
 			{
-				result[i] = arr1[i] * number;
+				result[i] = arr1[i] * factor;
 			}
 			return result;
 		}
