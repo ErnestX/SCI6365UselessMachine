@@ -10,7 +10,7 @@ namespace UselessMachineLightSourceFinder
 	{
 		static private int NUM_OF_SENSOR = 6;
 		static private StringBuilder serialBuffer = new StringBuilder(100, 1000);
-		static private double[] sensorBaselineValues = new double[] { 74.00, 62.00, 77.00, 42.00, 59.00, 69.00 };
+		static private double[] sensorBaselineValues = new double[NUM_OF_SENSOR];
 		static private Queue<SensorReading> readingHistory = new Queue<SensorReading>();
 		static private bool hasCalibrated = false;
 		static void Main(string[] args)
@@ -23,6 +23,7 @@ namespace UselessMachineLightSourceFinder
 
 			// Step2: calibrate
 			Console.WriteLine("calibrating... press key when done");
+			// Rotate the model exactly 360 degrees automatically or manually
 			Console.ReadKey();
 			SetBaselineFromHistory();
 			hasCalibrated = true;
@@ -41,7 +42,7 @@ namespace UselessMachineLightSourceFinder
 		{
 			// Step1: init all entries to 0
 			double[] baseline = new double[NUM_OF_SENSOR];
-			for (int i = 0; i < sr.NumOfSensors; i++)
+			for (int i = 0; i < NUM_OF_SENSOR; i++)
 			{
 				baseline[i] = 0;
 			}
@@ -56,7 +57,7 @@ namespace UselessMachineLightSourceFinder
 			}
 
 			// Step3: divide each entry by number of history added
-			for (int i = 0; i < sr.NumOfSensors; i++)
+			for (int i = 0; i < baseline.Length; i++)
 			{
 				baseline[i] = baseline[i] / readingHistory.Count;
 			}

@@ -16,7 +16,7 @@ namespace UselessMachineLightSourceFinder.UnitTests
 		public void TestLightSourceLocating()
 		{
 			var sr = new SensorReading(new List<int> { 600, 500, 400, 300, 200, 100 });
-			var result = LightSourceLocator.FindLightSourceLocationGivenSensorReadings(sr);
+			var result = LightSourceLocator.FindLightSourceLocationGivenSensorReadings(sr, new double[] { 74.00, 62.00, 77.00, 42.00, 59.00, 69.00 });
 			Console.WriteLine(result.ToString());
 		}
 
