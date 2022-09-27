@@ -14,14 +14,15 @@ namespace UselessMachineLightSourceFinder
 	/// </summary>
 	public class LightSourceLocator
 	{
-		private static double[] sensor_x_coordinates = { 4, 15, 5, -15, -18, 0 };
-		private static double[] sensor_y_coordinates = { -15, -8, 0, 5, -5, 10 };
-		private static double[] sensor_z_coordinates = { 2, 0, 5, 5, 0, 3 };
-		private static double[] sensor_z_coordinates_adjustments = { 0, -1, 0, 0, -1, 0 }; // YET TO BE TESTED: because no sensor is in negative Z, these are necessary to create a "pull" effect in addtion to the "push" from the positive ones
+		// be sure to avoid 0 as it effectively disables a sensor
+		private static double[] sensor_x_coordinates = { 4, 15, 5, -15, -18, 0.5 }; 
+		private static double[] sensor_y_coordinates = { -15, -8, 0.5, 5, -5, 10 }; 
+
+		private static double[] sensor_z_coordinates = { 2, 0.5, 5, 5, 0.5, 3 };
 
 		private static double[] sensor_x_weight = { 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
 		private static double[] sensor_y_weight = { 0.1, 0.1, 0.05, 0.05, 0.1, 0.05 };
-		private static double[] sensor_z_weight = { -0.9, -0.9, -0.9, -0.9, -0.9, -0.9 };
+		private static double[] sensor_z_weight = { -0.9, -0.9, -0.9, -0.9, -0.9, -0.9 }; // must be negative
 
 		private static double power = 0.33;
 
@@ -32,12 +33,12 @@ namespace UselessMachineLightSourceFinder
 		/// Measure the value of each sensor when no light is shine on them, or enter 0s to consider environmental light as light source 
 		/// If the light sensors rotates, enter the average value of all sensors
 		/// </summary>
-		private static double[] baselines; //TODO: do this automatically at the beginning
+		private static double[] baselines;
 		public static LightSourceLocation FindLightSourceLocationGivenSensorReadings(SensorReading sensorReading, double[] sensor_baselineValues)
 		{
 			baselines = sensor_baselineValues;
 			PrintArray(sensorReading.ReadingOfEachSensor);
-			Console.WriteLine("Average: {0:0.00}", sensorReading.ReadingOfEachSensor.Sum() / sensorReading.NumOfSensors);
+			Console.WriteLine("Average: {0:0.00}", sensorReading.ReadingOfEachSensor.Sum() / sensorReading.NumOfSensors); // print average for convenience
 
 			double[] readingsMinusBaselines = ArraySubstraction(sensorReading.ReadingOfEachSensor, baselines); // this removes the effect of environemtal light
 			double[] readingsToPower = ArrayPower(readingsMinusBaselines, power); // this makes the reading values linear to its distance to the light source
@@ -49,8 +50,8 @@ namespace UselessMachineLightSourceFinder
 			double yPredict = ArrayMultiplication(sensor_y_coordinates, readingsWeightedForY).Sum();
 
 			double[] readingsWeightedForZ = ArrayMultiplication(readingsToPower, sensor_z_weight);
-			double[] sensor_z_coordinates_adjusted = ArrayAddition(sensor_z_coordinates, sensor_z_coordinates_adjustments);
-			double zPredict = ArrayMultiplication(sensor_z_coordinates_adjusted, readingsWeightedForZ).Sum() + z_adjustment;
+			double[] readingsAdjustedForCoordinates = ArraySubstraction(readingsWeightedForZ, sensor_z_coordinates);
+			double zPredict = readingsAdjustedForCoordinates.Sum() / sensorReading.NumOfSensors + z_adjustment;
 
 			return new LightSourceLocation(xPredict,yPredict,zPredict);
 		}
