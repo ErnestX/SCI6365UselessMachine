@@ -17,16 +17,14 @@ namespace UselessMachineLightSourceFinder
 		// be sure to avoid 0 as it effectively disables a sensor
 		private static double[] sensor_x_coordinates = { 4, 15, 5, -15, -18, 0.5 }; 
 		private static double[] sensor_y_coordinates = { -15, -8, 0.5, 5, -5, 10 }; 
-
 		private static double[] sensor_z_coordinates = { 2, 0.5, 5, 5, 0.5, 3 };
 
 		private static double[] sensor_x_weight = { 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
 		private static double[] sensor_y_weight = { 0.1, 0.1, 0.05, 0.05, 0.1, 0.05 };
 		private static double[] sensor_z_weight = { -0.9, -0.9, -0.9, -0.9, -0.9, -0.9 }; // must be negative
+		private static double sensor_z_coordinates_weight = -2.0; // must be negative
 
 		private static double power = 0.33;
-
-		private static double z_adjustment = 60;
 
 		/// <summary>
 		/// To reduce the effect of environmental lighting. 
@@ -50,8 +48,9 @@ namespace UselessMachineLightSourceFinder
 			double yPredict = ArrayMultiplication(sensor_y_coordinates, readingsWeightedForY).Sum();
 
 			double[] readingsWeightedForZ = ArrayMultiplication(readingsToPower, sensor_z_weight);
-			double[] readingsAdjustedForCoordinates = ArraySubstraction(readingsWeightedForZ, sensor_z_coordinates);
-			double zPredict = readingsAdjustedForCoordinates.Sum() / sensorReading.NumOfSensors + z_adjustment;
+			double[] z_coordinates_weighted = ArrayMultiplication(sensor_z_coordinates, 
+				Enumerable.Repeat(sensor_z_coordinates_weight, sensorReading.NumOfSensors).ToArray());
+			double zPredict = ArrayAddition(readingsWeightedForZ, z_coordinates_weighted).Sum();
 
 			return new LightSourceLocation(xPredict,yPredict,zPredict);
 		}
