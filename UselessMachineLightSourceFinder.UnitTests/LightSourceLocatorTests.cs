@@ -45,7 +45,7 @@ namespace UselessMachineLightSourceFinder.UnitTests
 		}
 
 		[TestMethod]
-		public void TestArrayMultiplication()
+		public void TestArrayMultiplication_array()
 		{
 			double[] arr1 = { 1, -2, 3 };
 			double[] arr2 = { 2, 4, 8 };
@@ -54,6 +54,18 @@ namespace UselessMachineLightSourceFinder.UnitTests
 			Assert.AreEqual(2, result[0]);
 			Assert.AreEqual(-8, result[1]);
 			Assert.AreEqual(24, result[2]);
+		}
+
+		[TestMethod]
+		public void TestArrayMultiplication_factor()
+		{
+			double[] arr1 = { 1, -2, 3 };
+			double factor = 2.0;
+
+			var result = LightSourceLocator.ArrayMultiplication(arr1, factor);
+			Assert.AreEqual(2, result[0]);
+			Assert.AreEqual(-4, result[1]);
+			Assert.AreEqual(6, result[2]);
 		}
 
 		[TestMethod]

@@ -48,8 +48,7 @@ namespace UselessMachineLightSourceFinder
 			double yPredict = ArrayMultiplication(sensor_y_coordinates, readingsWeightedForY).Sum();
 
 			double[] readingsWeightedForZ = ArrayMultiplication(readingsToPower, sensor_z_weight);
-			double[] z_coordinates_weighted = ArrayMultiplication(sensor_z_coordinates, 
-				Enumerable.Repeat(sensor_z_coordinates_weight, sensorReading.NumOfSensors).ToArray());
+			double[] z_coordinates_weighted = ArrayMultiplication(sensor_z_coordinates, sensor_z_coordinates_weight);
 			double zPredict = ArrayAddition(readingsWeightedForZ, z_coordinates_weighted).Sum();
 
 			return new LightSourceLocation(xPredict,yPredict,zPredict);
@@ -103,6 +102,16 @@ namespace UselessMachineLightSourceFinder
 			for (int i = 0; i < arr1.Length; i++)
 			{
 				result[i] = arr1[i] * arr2[i];
+			}
+			return result;
+		}
+
+		public static double[] ArrayMultiplication(double[] arr1, double number)
+		{
+			double[] result = new double[arr1.Length];
+			for (int i = 0; i < arr1.Length; i++)
+			{
+				result[i] = arr1[i] * number;
 			}
 			return result;
 		}
